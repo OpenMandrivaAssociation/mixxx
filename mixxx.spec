@@ -8,6 +8,7 @@ Group: Multimedia/Sound
 Summary: Mixxx is DJ software
 Source: %{name}-%{version}-src.tar.bz2
 Patch0: mixxx-1.5.0.1-python-config.patch
+Patch1: mixxx-1.5.0.1-djconsole-usb.patch
 URL: http://mixxx.sourceforge.net/
 License:	GPL
 BuildRoot:	%{_tmppath}/%{name}-buildroot
@@ -24,6 +25,7 @@ BuildRequires: alsa-lib-devel
 BuildRequires:	libsndfile-devel
 BuildRequires: portaudio-devel >= 0.19
 BuildRequires: libdjconsole-devel
+BuildRequires: sed
 %py_requires -d
 
 %description
@@ -39,9 +41,13 @@ text files.
 
 %prep
 %setup -q -n %name-%base_version
-%patch0 -p1
+%patch0 -p1 -b .orig
+%patch1 -p1 -b .orig
 
 %build
+export QTDIR=%_prefix/lib/qt3
+export PATH=$QTDIR/bin:$PATH
+
 cd src
 
 ./configure \
@@ -78,7 +84,7 @@ rm -rf %buildroot
 
 %files
 %defattr(-,root,root)
-%doc COPYING README README.ALSA LICENSE
+%doc COPYING README README.ALSA LICENSE README.macro HERCULES.txt 
 %doc Mixxx-Manual.pdf
 %_bindir/%name
 %_iconsdir/*/*/apps/mixxx-icon.png
