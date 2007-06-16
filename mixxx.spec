@@ -1,15 +1,15 @@
 %define base_version 1.5.0
 %define minor_version 1
 
-Name:		mixxx
+Name: mixxx
 Version:	%{base_version}.%{minor_version}
-Release:	%mkrel 1
-Group:		Multimedia/Sound
+Release:	%mkrel 2
+Group: Multimedia/Sound
 Summary:	Mixxx is DJ software
-Source:		%{name}-%{version}-src.tar.bz2
-Patch0:		%{name}-1.5.0.1-python-config.patch
-Patch1:		%{name}-1.5.0.1-djconsole-usb.patch
-URL:		http://mixxx.sourceforge.net/
+Source: %{name}-%{version}-src.tar.bz2
+Patch0: %{name}-1.5.0.1-python-config.patch
+Patch1: %{name}-1.5.0.1-djconsole-usb.patch
+URL: http://mixxx.sourceforge.net/
 License:	GPL
 BuildRequires:	libsndfile-static-devel
 BuildRequires:	qt3-devel 
@@ -49,9 +49,7 @@ text files.
 export CFLAGS="%{optflags}"
 export CXXFLAGS="%{optflags}"
 
-export QTDIR=%{_prefix}/lib/qt3
-export PATH=QTDIR/bin:$PATH
-
+export QTDIR=%qt3dir
 
 perl -p -i -e "s|QTDIR\/lib|QTDIR\/%{_lib}|g" \
 	src/configure
@@ -63,13 +61,13 @@ perl -p  -i -e 's|-ldjconsole|-ldjconsole -lusb|g' \
 pushd src
 
 ./configure \
-	--prefix=%{_prefix} \
+	--prefix=%_prefix \
 	--enable-jack \
 	--enable-alsa \
 	--enable-djconsole \
-	--enable-python \
+	--enable-python 
 
-make
+	%make
 popd
 
 %install
@@ -106,3 +104,4 @@ rm -rf %{buildroot}
 %dir %{_datadir}/mixxx
 %{_datadir}/mixxx/*
 %{_datadir}/applications/%{name}.desktop
+
