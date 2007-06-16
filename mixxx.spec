@@ -7,8 +7,8 @@ Release:	%mkrel 1
 Group:		Multimedia/Sound
 Summary:	Mixxx is DJ software
 Source:		%{name}-%{version}-src.tar.bz2
-Patch0:		mixxx-1.5.0.1-python-config.patch
-Patch1:		mixxx-1.5.0.1-djconsole-usb.patch
+Patch0:		%{name}-1.5.0.1-python-config.patch
+Patch1:		%{name}-1.5.0.1-djconsole-usb.patch
 URL:		http://mixxx.sourceforge.net/
 License:	GPL
 BuildRequires:	libsndfile-static-devel
@@ -24,6 +24,7 @@ BuildRequires:	mesaglu-devel
 BuildRequires:	alsa-lib-devel
 BuildRequires:	portaudio-devel >= 0.19
 BuildRequires:	libdjconsole-devel
+BuildRequires:	libusb-devel
 BuildRequires:	sed
 %py_requires -d
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -45,8 +46,19 @@ text files.
 %patch1 -p1 -b .orig
 
 %build
+export CFLAGS="%{optflags}"
+export CXXFLAGS="%{optflags}"
+
 export QTDIR=%{_prefix}/lib/qt3
-export PATH=$QTDIR/bin:$PATH
+export PATH=QTDIR/bin:$PATH
+
+
+perl -p -i -e "s|QTDIR\/lib|QTDIR\/%{_lib}|g" \
+	src/configure
+perl -p -i -e "s|lib\/libqt-mt|%{_lib}\/libqt-mt|g" \
+	src/build.definition
+perl -p  -i -e 's|-ldjconsole|-ldjconsole -lusb|g' \
+	src/build.definition
 
 pushd src
 
