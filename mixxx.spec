@@ -1,16 +1,16 @@
 %define base_version 1.5.0
 %define minor_version 1
 
-Name: mixxx
+Summary:	Mixxx is DJ software
+Name:		mixxx
 Version:	%{base_version}.%{minor_version}
 Release:	%mkrel 2
-Group: Multimedia/Sound
-Summary:	Mixxx is DJ software
-Source: %{name}-%{version}-src.tar.bz2
-Patch0: %{name}-1.5.0.1-python-config.patch
-Patch1: %{name}-1.5.0.1-djconsole-usb.patch
-URL: http://mixxx.sourceforge.net/
+Group:		Sound
 License:	GPL
+URL:		http://mixxx.sourceforge.net/
+Source:		http://downloads.sourceforge.net/mixxx/%{name}-%{version}-src.tar.bz2
+Patch0:		%{name}-1.5.0.1-python-config.patch
+Patch1:		%{name}-1.5.0.1-djconsole-usb.patch
 BuildRequires:	libsndfile-static-devel
 BuildRequires:	qt3-devel 
 BuildRequires:	fftw-devel 
@@ -61,13 +61,13 @@ perl -p  -i -e 's|-ldjconsole|-ldjconsole -lusb|g' \
 pushd src
 
 ./configure \
-	--prefix=%_prefix \
+	--prefix=%{_prefix} \
 	--enable-jack \
 	--enable-alsa \
 	--enable-djconsole \
 	--enable-python 
 
-	%make
+%make
 popd
 
 %install
@@ -83,6 +83,7 @@ install -m644 mixxx.desktop %{buildroot}%{_datadir}/applications
 for name in 16 32 48 128; do
 	mkdir -p %{buildroot}%{_iconsdir}/hicolor/${name}x${name}/apps
 done
+
 install -m644 iconsmall.png %{buildroot}%{_iconsdir}/hicolor/16x16/apps/mixxx-icon.png
 install -m644 iconlarge.png %{buildroot}%{_iconsdir}/hicolor/32x32/apps/mixxx-icon.png
 install -m644 iconhuge.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/mixxx-icon.png
@@ -95,6 +96,14 @@ popd
 %clean
 rm -rf %{buildroot}
 
+%post
+%{update_menus}
+%update_icon_cache hicolor
+
+%postun
+%{clean_menus}
+%clean_icon_cache hicolor
+
 %files
 %defattr(-,root,root)
 %doc COPYING README README.ALSA LICENSE README.macro HERCULES.txt 
@@ -104,4 +113,3 @@ rm -rf %{buildroot}
 %dir %{_datadir}/mixxx
 %{_datadir}/mixxx/*
 %{_datadir}/applications/%{name}.desktop
-
