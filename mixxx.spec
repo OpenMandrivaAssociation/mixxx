@@ -4,7 +4,7 @@
 Summary:	Mixxx is DJ software
 Name:		mixxx
 Version:	%{base_version}.%{minor_version}
-Release:	%mkrel 2
+Release:	%mkrel 3
 Group:		Sound
 License:	GPL
 URL:		http://mixxx.sourceforge.net/
