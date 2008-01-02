@@ -27,6 +27,7 @@ BuildRequires:	libdjconsole-devel
 BuildRequires:	libusb-devel
 BuildRequires:	sed
 %py_requires -d
+BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 Mixxx is DJ software emulating an analog mixer with two playback devices. The
