@@ -6,7 +6,7 @@
 %define version		%base_version
 %define distname	%name-%version-%pre
 %else
-%define release		%mkrel 1
+%define release		%mkrel 3
 %define version		%base_version.%minor_version
 %define distname	%name-%version
 %endif
