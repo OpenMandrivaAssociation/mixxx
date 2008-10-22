@@ -1,49 +1,32 @@
-%define base_version	1.6.0
-%define pre		beta2
-%define minor_version	1
-%if %pre
-%define release		%mkrel 0.%pre.1
-%define version		%base_version
-%define distname	%name-%version-%pre
-%else
-%define release		%mkrel 3
-%define version		%base_version.%minor_version
-%define distname	%name-%version
-%endif
-
-Summary:	Music DJing software
-Name:		mixxx
-Version:	%{version}
-Release:	%{release}
-Group:		Sound
-License:	GPLv2+
-URL:		http://mixxx.sourceforge.net/
-Source:		http://downloads.sourceforge.net/mixxx/%{distname}-src.tar.gz
+Name: mixxx
+Version: 1.6.1
+Release: %mkrel 1
+Group: Sound
+License: GPLv2+
+Summary: Music DJing software
+URL: http://mixxx.sourceforge.net/
+Source: http://downloads.sourceforge.net/mixxx/%{name}-%{version}-src.tar.gz
 # Remove the djconsole test, as it doesn't seem to work - AdamW 2008/03
-Patch0:		mixxx-1.6.0-djconsole.patch
+Patch0:	 mixxx-1.6.0-djconsole.patch
 # Fix up the menu entry for MDV standards - AdamW 2008/03
-Patch1:		mixxx-1.6.0-desktop.patch
-# Allow custom optflags to be specified as a build parameter, letting
-# us use the MDV optflags: with thanks to misc for python help :)
-# - AdamW 2008/03
-Patch2:		mixxx-1.6.0-optflags.patch
-BuildRequires:	libsndfile-static-devel
-BuildRequires:	qt4-devel 
-BuildRequires:	fftw-devel 
-BuildRequires:	libogg-devel 
-BuildRequires:	libvorbis-devel 
-BuildRequires:	jackit-devel
-BuildRequires:	audiofile-devel 
-BuildRequires:	libid3tag-devel 
-BuildRequires:	mad-devel
-BuildRequires:	mesaglu-devel 
-BuildRequires:	alsa-lib-devel
-BuildRequires:	portaudio-devel >= 0.19
-BuildRequires:	libdjconsole-devel
-BuildRequires:	libusb-devel
-BuildRequires:	sed
-BuildRequires:	scons
-BuildRequires:	qt4-linguist
+Patch1: mixxx-1.6.0-desktop.patch
+BuildRequires: libsndfile-static-devel
+BuildRequires: qt4-devel
+BuildRequires: fftw-devel
+BuildRequires: libogg-devel
+BuildRequires: libvorbis-devel
+BuildRequires: jackit-devel
+BuildRequires: audiofile-devel
+BuildRequires: libid3tag-devel
+BuildRequires: mad-devel
+BuildRequires: mesaglu-devel
+BuildRequires: sndfile-devel
+BuildRequires: alsa-lib-devel
+BuildRequires: portaudio-devel >= 0.19
+BuildRequires: libdjconsole-devel
+BuildRequires: libusb-devel
+BuildRequires: sed
+BuildRequires: scons
 %py_requires -d
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
@@ -59,30 +42,44 @@ MIDI controllers can be used. The mapping between functions and MIDI
 controller values are done in text files. 
 
 %prep
-%if %pre
-%setup -q -n %{name}-%{base_version}%{pre}
-%else
-%setup -q -n %{name}-%{base_version}
-%endif
+%setup -q 
 %patch0 -p1 -b .djconsole
 %patch1 -p1 -b .desktop
-%patch2 -p1 -b .optflags
 
 %build
-export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:%{qt4lib}/pkgconfig
-
 sed -i -e "s|QTDIR\/lib|QTDIR\/%{_lib}|g" \
 	src/SConscript
 sed -i -e "s|lib\/libqt-mt|%{_lib}\/libqt-mt|g" \
 	src/build.definition
 
-scons %{_smp_mflags} prefix=%{_prefix} install_root=%{buildroot}%{_prefix} qtdir=%{qt4dir} djconsole=1 optimize="%{optflags}"
+scons \
+    prefix=%{_prefix} \
+    install_root=%{buildroot}%{_prefix} \
+    qtdir=%{qt4dir} \
+    djconsole=1 \
+    optimize=1 \
+    script=1 \
+    shoutcast=1 \
+    ladspa=1 \
+    ipod=1
 
 %install
 rm -rf %{buildroot}
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:%{qt4lib}/pkgconfig
 mkdir -p %{buildroot}%{_prefix}
-scons %{_smp_mflags} install prefix=%{_prefix} install_root=%{buildroot}%{_prefix} qtdir=%{qt4dir} djconsole=1 optimize="%{optflags}"
+
+scons \
+    install \
+    prefix=%{_prefix} \
+    install_root=%{buildroot}%{_prefix} \
+    qtdir=%{qt4dir} \
+    djconsole=1 \
+    optimize=1 \
+    script=1 \
+    shoutcast=1 \
+    ladspa=1 \
+    ipod=1
+
 rm -fr %{buildroot}/%{_docdir}
 
 mkdir -p %{buildroot}%{_datadir}/applications
