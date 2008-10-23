@@ -27,6 +27,7 @@ BuildRequires: libdjconsole-devel
 BuildRequires: ladspa-devel
 BuildRequires: libusb-devel
 BuildRequires: libgpod-devel
+BuildRequires: libshout-devel
 BuildRequires: sed
 BuildRequires: scons
 %py_requires -d
