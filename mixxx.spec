@@ -26,6 +26,7 @@ BuildRequires: portaudio-devel >= 0.19
 BuildRequires: libdjconsole-devel
 BuildRequires: ladspa-devel
 BuildRequires: libusb-devel
+BuildRequires: libgpod-devel
 BuildRequires: sed
 BuildRequires: scons
 %py_requires -d
