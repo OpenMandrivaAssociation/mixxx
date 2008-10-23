@@ -24,6 +24,7 @@ BuildRequires: sndfile-devel
 BuildRequires: alsa-lib-devel
 BuildRequires: portaudio-devel >= 0.19
 BuildRequires: libdjconsole-devel
+BuildRequires: ladspa-devel
 BuildRequires: libusb-devel
 BuildRequires: sed
 BuildRequires: scons
