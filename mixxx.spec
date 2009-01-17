@@ -7,7 +7,7 @@ Summary: Music DJing software
 URL: http://mixxx.sourceforge.net/
 Source: http://downloads.sourceforge.net/mixxx/%{name}-%{version}-src.tar.gz
 # Remove the djconsole test, as it doesn't seem to work - AdamW 2008/03
-Patch0:	 mixxx-1.6.0-djconsole.patch
+Patch0:	 mixxx-1.6.1-djconsole.patch
 # Fix up the menu entry for MDV standards - AdamW 2008/03
 Patch1: mixxx-1.6.0-desktop.patch
 BuildRequires: libsndfile-static-devel
