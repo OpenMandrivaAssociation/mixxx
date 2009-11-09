@@ -6,10 +6,6 @@ Group:		Sound
 License:	GPLv2+
 URL:		http://mixxx.sourceforge.net/
 Source:		http://downloads.sourceforge.net/mixxx/%{name}-%{version}-src.tar.gz
-# Remove the djconsole test, as it doesn't seem to work - AdamW 2008/03
-Patch0:		mixxx-1.6.1-djconsole.patch
-# Fix up the menu entry for MDV standards - AdamW 2008/03
-Patch1:		mixxx-1.6.0-desktop.patch
 Patch2:		mixxx-1.7.0-ffmpeg-headers.patch
 BuildRequires:	libsndfile-devel
 BuildRequires:	qt4-devel
@@ -49,8 +45,6 @@ controller values are done in text files.
 
 %prep
 %setup -q
-#%patch0 -p1 -b .djconsole
-#%patch1 -p1 -b .desktop
 %patch2 -p1
 
 %build
