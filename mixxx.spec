@@ -1,6 +1,6 @@
 Summary:	Music DJing software
 Name:		mixxx
-Version:	1.7.1
+Version:	1.7.2
 Release:	%mkrel 1
 Group:		Sound
 License:	GPLv2+
@@ -49,7 +49,7 @@ controller values are done in text files.
 
 %build
 sed -i -e "s|QTDIR\/lib|QTDIR\/%{_lib}|g" src/SConscript
-sed -i -e 's|-Wl,-rpath,\$QTDIR/lib||g' src/SConscript
+sed -i -e 's|-Wl,-rpath,\$QTDIR/%{_lib}||g' src/SConscript
 
 #sed -i -e "s|lib\/libqt-mt|%{_lib}\/libqt-mt|g" \
 #	src/build.definition
