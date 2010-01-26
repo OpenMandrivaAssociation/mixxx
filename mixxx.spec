@@ -7,6 +7,7 @@ License:	GPLv2+
 URL:		http://mixxx.sourceforge.net/
 Source:		http://downloads.sourceforge.net/mixxx/%{name}-%{version}-src.tar.gz
 Patch2:		mixxx-1.7.0-ffmpeg-headers.patch
+Patch3:		mixxx-1.7.2-fix-multiarch-sndfile.patch
 BuildRequires:	libsndfile-devel
 BuildRequires:	qt4-devel
 BuildRequires:	fftw-devel
@@ -46,6 +47,14 @@ controller values are done in text files.
 %prep
 %setup -q
 %patch2 -p1
+
+# fix multiarch sndfile includes to backport to 2010.0
+# multiarch is fixed in cooker
+%if %mdkversion < 201010
+%ifarch x86_64
+%patch3 -p0
+%endif
+%endif
 
 %build
 sed -i -e "s|QTDIR\/lib|QTDIR\/%{_lib}|g" src/SConscript
