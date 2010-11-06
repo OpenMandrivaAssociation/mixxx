@@ -1,7 +1,7 @@
 Summary:	Music DJing software
 Name:		mixxx
 Version:	1.7.2
-Release:	%mkrel 1
+Release:	%mkrel 2
 Group:		Sound
 License:	GPLv2+
 URL:		http://mixxx.sourceforge.net/
