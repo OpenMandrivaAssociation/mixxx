@@ -8,6 +8,7 @@ URL:		http://mixxx.sourceforge.net/
 Source:		http://downloads.sourceforge.net/mixxx/%{name}-%{version}-src.tar.gz
 Patch1:		mixxx-1.7.0-ffmpeg-headers.patch
 Patch2:		mixxx-1.9.0-remove-track-include.patch
+Patch3:		mixxx-1.9.2-qt4.8.patch
 BuildRequires:	libsndfile-devel
 BuildRequires:	qt4-devel >= 4.6
 BuildRequires:	fftw-devel
@@ -51,6 +52,9 @@ controller values are done in text files.
 %setup -q
 %patch1 -p1
 %patch2 -p0
+%if %{mdvver} >=201200
+%patch3 -p1 -b .qt48
+%endif
 
 %build
 sed -i -e "s|QTDIR\/lib|QTDIR\/%{_lib}|g" src/SConscript
