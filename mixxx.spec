@@ -1,21 +1,22 @@
 Summary:	Music DJing software
 Name:		mixxx
-Version:	1.7.2
-Release:	%mkrel 2
+Version:	1.9.2
+Release:	%mkrel 1
 Group:		Sound
 License:	GPLv2+
 URL:		http://mixxx.sourceforge.net/
 Source:		http://downloads.sourceforge.net/mixxx/%{name}-%{version}-src.tar.gz
-Patch2:		mixxx-1.7.0-ffmpeg-headers.patch
-Patch3:		mixxx-1.7.2-fix-multiarch-sndfile.patch
+Patch1:		mixxx-1.7.0-ffmpeg-headers.patch
+Patch2:		mixxx-1.9.0-remove-track-include.patch
 BuildRequires:	libsndfile-devel
-BuildRequires:	qt4-devel
+BuildRequires:	qt4-devel >= 4.6
 BuildRequires:	fftw-devel
 BuildRequires:	libogg-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	jackit-devel
 BuildRequires:	audiofile-devel
 BuildRequires:	libid3tag-devel
+BuildRequires:	libtaglib-devel
 BuildRequires:	mad-devel
 BuildRequires:	mesaglu-devel
 BuildRequires:	sndfile-devel
@@ -26,10 +27,12 @@ BuildRequires:	ladspa-devel
 BuildRequires:	libusb-devel
 BuildRequires:	libgpod-devel
 BuildRequires:	libshout-devel
-#BuildRequires:	portmidi-devel
+BuildRequires:	portmidi-devel
 BuildRequires:	libffmpeg-devel
 BuildRequires:	sed
 BuildRequires:	scons
+BuildRequires:	imagemagick
+Requires:	qt4-database-plugin-sqlite
 %py_requires -d
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
@@ -46,15 +49,8 @@ controller values are done in text files.
 
 %prep
 %setup -q
-%patch2 -p1
-
-# fix multiarch sndfile includes to backport to 2010.0
-# multiarch is fixed in cooker
-%if %mdkversion < 201010
-%ifarch x86_64
-%patch3 -p0
-%endif
-%endif
+%patch1 -p1
+%patch2 -p0
 
 %build
 sed -i -e "s|QTDIR\/lib|QTDIR\/%{_lib}|g" src/SConscript
@@ -69,10 +65,10 @@ sed -i -e 's|-Wl,-rpath,\$QTDIR/%{_lib}||g' src/SConscript
     qtdir=%{qt4dir} \
     djconsole=1 \
     optimize=0 \
-    script=1 \
+    script=0 \
     shoutcast=1 \
-    ladspa=1 \
-    ipod=1 \
+    ladspa=0 \
+    ipod=0 \
     hifieq=1 \
     ffmpeg=0 \
     vinylcontrol=1 \
@@ -96,31 +92,18 @@ rm -fr %{buildroot}/%{_docdir}
 mkdir -p %{buildroot}%{_datadir}/applications
 install -m644 src/mixxx.desktop %{buildroot}%{_datadir}/applications
 
-mkdir -p %{buildroot}%{_iconsdir}/hicolor/{16x16,32x32,48x48,128x128,scalable}/apps
+mkdir -p %{buildroot}%{_iconsdir}/hicolor/{16x16,32x32,48x48,128x128}/apps
 
-install -m644 res/images/iconsmall.png %{buildroot}%{_iconsdir}/hicolor/16x16/apps/mixxx-icon.png
-install -m644 res/images/iconlarge.png %{buildroot}%{_iconsdir}/hicolor/32x32/apps/mixxx-icon.png
-install -m644 res/images/iconhuge.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/mixxx-icon.png
-install -m644 res/images/icon.png %{buildroot}%{_iconsdir}/hicolor/128x128/apps/mixxx-icon.png
-install -m644 res/images/icon.svg %{buildroot}%{_iconsdir}/hicolor/scalable/apps/mixxx-icon.svg
+install -m644 res/images/mixxx-icon.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/mixxx-icon.png
+convert -resize 128x128 res/images/mixxx-icon.png %{buildroot}%{_iconsdir}/hicolor/128x128/apps/mixxx-icon.png
+convert -resize 32x32 res/images/mixxx-icon.png %{buildroot}%{_iconsdir}/hicolor/32x32/apps/mixxx-icon.png
+convert -resize 16x16 res/images/mixxx-icon.png %{buildroot}%{_iconsdir}/hicolor/16x16/apps/mixxx-icon.png
 
 # not needed
 rm -rf %{buildroot}%{_datadir}/pixmaps
 
 %clean
 rm -rf %{buildroot}
-
-%if %mdkversion < 200900
-%post
-%{update_menus}
-%{update_icon_cache hicolor}
-%endif
-
-%if %mdkversion < 200900
-%postun
-%{clean_menus}
-%{clean_icon_cache hicolor}
-%endif
 
 %files
 %defattr(-,root,root)
@@ -130,3 +113,4 @@ rm -rf %{buildroot}
 %{_iconsdir}/hicolor/*/apps/*
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
+
