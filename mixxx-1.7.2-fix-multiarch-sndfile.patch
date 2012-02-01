@@ -1,0 +1,42 @@
+--- src/soundsourcesndfile.h	2009-12-30 03:39:14.000000000 +0100
++++ src/soundsourcesndfile.h~	2010-01-26 08:16:26.000000000 +0100
+@@ -19,7 +19,7 @@
+ 
+ #include "soundsource.h"
+ #include <stdio.h>
+-#include <sndfile.h>
++#include </usr/include/multiarch-x86_64-linux/sndfile.h>
+ //Added by qt3to4:
+ #include <Q3ValueList>
+ class TrackInfoObject;
+--- src/recording/writeaudiofile.cpp	2009-12-30 03:39:14.000000000 +0100
++++ src/recording/writeaudiofile.cpp~	2010-01-26 08:18:13.000000000 +0100
+@@ -1,5 +1,5 @@
+ #include <QtCore>
+-#include <sndfile.h>
++#include </usr/include/multiarch-x86_64-linux/sndfile.h>
+ #include "../controlobjectthread.h"
+ #include "../controlobject.h"
+ #include "../dlgprefrecord.h"
+--- src/recording/writeaudiofile.h	2009-12-30 03:39:14.000000000 +0100
++++ src/recording/writeaudiofile.h~	2010-01-26 08:20:12.000000000 +0100
+@@ -13,7 +13,7 @@
+ #include "configobject.h"
+ #include "controlobject.h"
+ #include "defs.h"
+-#include <sndfile.h>
++#include </usr/include/multiarch-x86_64-linux/sndfile.h>
+ 
+ class WriteAudioFile
+ {
+--- src/soundsourcemp3.h	2009-12-30 03:39:14.000000000 +0100
++++ src/soundsourcemp3.h~	2010-01-26 08:22:34.000000000 +0100
+@@ -26,7 +26,7 @@
+ #ifdef WIN64
+   #define FPM_64BIT // So mad.h doesn't try to use inline assembly which MSVC-x64 doesn't support
+ #endif
+-#include "mad.h"
++#include "/usr/include/multiarch-x86_64-linux/mad.h"
+ 
+ #include "errno.h"
+ #include "soundsource.h"
