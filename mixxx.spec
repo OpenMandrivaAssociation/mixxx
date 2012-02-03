@@ -28,7 +28,7 @@ BuildRequires:	libusb-devel
 BuildRequires:	libgpod-devel
 BuildRequires:	libshout-devel
 BuildRequires:	portmidi-devel
-BuildRequires:	libffmpeg-devel
+BuildRequires:	ffmpeg-devel
 BuildRequires:	sed
 BuildRequires:	scons
 BuildRequires:	imagemagick
