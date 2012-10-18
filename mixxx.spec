@@ -1,35 +1,33 @@
 Summary:	Music DJing software
 Name:		mixxx
-Version:	1.10.0
-Release:	%mkrel 1
+Version:	1.10.1
+Release:	1
 Group:		Sound
 License:	GPLv2+
 URL:		http://mixxx.sourceforge.net/
 Source:		http://downloads.mixxx.org/%{name}-%{version}/%{name}-%{version}-src.tar.gz
 Patch1:		mixxx-1.7.0-ffmpeg-headers.patch
 Patch2:		mixxx-1.9.0-remove-track-include.patch
-BuildRequires:	libsndfile-devel
-BuildRequires:	qt4-devel >= 4:4.6
-BuildRequires:	fftw-devel
-BuildRequires:	libogg-devel
-BuildRequires:	libvorbis-devel
-BuildRequires:	jackit-devel
-BuildRequires:	audiofile-devel
+BuildRequires:	pkgconfig(sndfile)
+BuildRequires:	qt4-devel
+BuildRequires:	pkgconfig(fftw3)
+BuildRequires:	pkgconfig(ogg)
+BuildRequires:	pkgconfig(vorbis)
+BuildRequires:	pkgconfig(jack)
+BuildRequires:	pkgconfig(audiofile)
 BuildRequires:	libid3tag-devel
-BuildRequires:	libtaglib-devel
-BuildRequires:	mad-devel
-BuildRequires:	mesaglu-devel
-BuildRequires:	sndfile-devel
-BuildRequires:	alsa-lib-devel
-BuildRequires:	portaudio-devel >= 0.19
-BuildRequires:	libdjconsole-devel
+BuildRequires:	pkgconfig(taglib)
+BuildRequires:	pkgconfig(id3tag)
+BuildRequires:	pkgconfig(glu)
+BuildRequires:	pkgconfig(alsa)
+BuildRequires:	pkgconfig(portaudio-2.0)
+BuildRequires:	pkgconfig(libdjconsole)
 BuildRequires:	ladspa-devel
-BuildRequires:	libusb-devel
-BuildRequires:	libgpod-devel
-BuildRequires:	libshout-devel
+BuildRequires:	pkgconfig(libusb)
+BuildRequires:	pkgconfig(libgpod-1.0)
+BuildRequires:	pkgconfig(shout)
 BuildRequires:	portmidi-devel
 BuildRequires:	ffmpeg-devel
-BuildRequires:	sed
 BuildRequires:	scons
 BuildRequires:	imagemagick
 Requires:	qt4-database-plugin-sqlite
@@ -79,7 +77,6 @@ sed -i -e 's|-Wl,-rpath,\$QTDIR/%{_lib}||g' src/SConscript
     tuned=0
 
 %install
-rm -rf %{buildroot}
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:%{qt4lib}/pkgconfig
 mkdir -p %{buildroot}%{_prefix}
 %scons_install \
@@ -101,11 +98,7 @@ convert -resize 16x16 res/images/mixxx-icon.png %{buildroot}%{_iconsdir}/hicolor
 # not needed
 rm -rf %{buildroot}%{_datadir}/pixmaps
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc README LICENSE README.macro
 %doc Mixxx-Manual.pdf
 %{_bindir}/%{name}
