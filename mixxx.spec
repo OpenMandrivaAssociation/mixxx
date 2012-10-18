@@ -15,7 +15,7 @@ BuildRequires:	pkgconfig(ogg)
 BuildRequires:	pkgconfig(vorbis)
 BuildRequires:	pkgconfig(jack)
 BuildRequires:	pkgconfig(audiofile)
-BuildRequires:	libid3tag-devel
+BuildRequires:	pkgconfig(mad)
 BuildRequires:	pkgconfig(taglib)
 BuildRequires:	pkgconfig(id3tag)
 BuildRequires:	pkgconfig(glu)
