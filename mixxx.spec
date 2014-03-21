@@ -1,15 +1,15 @@
 Summary:	Music DJing software
 Name:		mixxx
-Version:	1.10.1
+Version:	1.11.0
 Release:	1
 Group:		Sound
 License:	GPLv2+
 URL:		http://mixxx.sourceforge.net/
 Source:		http://downloads.mixxx.org/%{name}-%{version}/%{name}-%{version}-src.tar.gz
-Patch1:		mixxx-1.7.0-ffmpeg-headers.patch
-Patch2:		mixxx-1.9.0-remove-track-include.patch
+#Patch1:	mixxx-1.7.0-ffmpeg-headers.patch
+#Patch2:	mixxx-1.9.0-remove-track-include.patch
+BuildRequires:	qt4-devel >= 4.6.0
 BuildRequires:	pkgconfig(sndfile)
-BuildRequires:	qt4-devel
 BuildRequires:	pkgconfig(fftw3)
 BuildRequires:	pkgconfig(ogg)
 BuildRequires:	pkgconfig(vorbis)
@@ -22,10 +22,14 @@ BuildRequires:	pkgconfig(glu)
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(portaudio-2.0)
 BuildRequires:	pkgconfig(libdjconsole)
-BuildRequires:	ladspa-devel
 BuildRequires:	pkgconfig(libusb)
 BuildRequires:	pkgconfig(libgpod-1.0)
 BuildRequires:	pkgconfig(shout)
+BuildRequires:	pkgconfig(protobuf)
+BuildRequires:	pkgconfig(rubberband)
+BuildRequires:	pkgconfig(wavpack)
+BuildRequires:	pkgconfig(libchromaprint)
+BuildRequires:	ladspa-devel
 BuildRequires:	portmidi-devel
 BuildRequires:	ffmpeg-devel
 BuildRequires:	scons
@@ -35,46 +39,53 @@ Requires:	qt4-database-plugin-sqlite
 
 %description
 Mixxx allows DJs to mix music live with a clean, simple interface.
-Futhermore, Mixxx has a number of key features to help DJs in the mix:
-Beat estimation, parallel visual displays, and support for various DJ
-hardware controllers.
+Futhermore, Mixxx has a number of key features to help DJs in the mix: beat
+estimation, parallel visual displays, and support for various DJ hardware
+controllers.
 
-Mixxx can be controlled through the GUI using the mouse, or by
-connecting MIDI devices to the computer. Commercial and custom build
-MIDI controllers can be used. The mapping between functions and MIDI
-controller values are done in text files. 
+Mixxx can be controlled through the GUI using the mouse, or by connecting MIDI
+devices to the computer. Commercial and custom build MIDI controllers can be
+used. The mapping between functions and MIDI controller values are done in
+text files. 
+
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p0
+#patch1 -p1
+#patch2 -p0
+
 
 %build
 sed -i -e "s|QTDIR\/lib|QTDIR\/%{_lib}|g" src/SConscript
 sed -i -e 's|-Wl,-rpath,\$QTDIR/%{_lib}||g' src/SConscript
 
-#sed -i -e "s|lib\/libqt-mt|%{_lib}\/libqt-mt|g" \
+#sed -i -e "s|lib\/libqt-mt|%%{_lib}\/libqt-mt|g" \
 #	src/build.definition
 
+# Not working support: ffmpeg, ipod and tonal
+# Build fail: hss1394, ladspa
+# Other options: faad, mad
 %scons \
     prefix=%{_prefix} \
     install_root=%{buildroot}%{_prefix} \
     qtdir=%{qt4dir} \
+    qdebug=0 \
     djconsole=1 \
     optimize=0 \
-    script=0 \
     shoutcast=1 \
+    wavpack=1 \
+    promotracks=1 \
     ladspa=0 \
     ipod=0 \
     hifieq=1 \
     ffmpeg=0 \
+    vamp=0 \
     vinylcontrol=1 \
-    midiscript=1 \
-    rawmidi=1 \
-    tonal=1 \
-    portmidi=0 \
+    tonal=0 \
+    portmidi=1 \
     m4a=0 \
     tuned=0
+
 
 %install
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:%{qt4lib}/pkgconfig
@@ -98,10 +109,12 @@ convert -resize 16x16 res/images/mixxx-icon.png %{buildroot}%{_iconsdir}/hicolor
 # not needed
 rm -rf %{buildroot}%{_datadir}/pixmaps
 
+
 %files
 %doc README LICENSE README.macro
 %doc Mixxx-Manual.pdf
 %{_bindir}/%{name}
+#{_libdir}/%%{name}/plugins/vamp/*.so
 %{_iconsdir}/hicolor/*/apps/*
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
@@ -109,6 +122,13 @@ rm -rf %{buildroot}%{_datadir}/pixmaps
 
 
 %changelog
+* Fri Mar 21 2014 Giovanni Mariani <mc2374@mclink.it> 1.11.0-1
+- New release 1.11.0
+- Adjusted BReqs
+- Dropped P1 (upstreamed) and P2 (does apply no more)
+- Dropped compile options now unused; disabled ffmpeg, ipod and tonal options
+  (because they don't work ATM)
+
 * Fri Feb 03 2012 Andrey Bondrov <abondrov@mandriva.org> 1.10.0-1mdv2011.0
 + Revision: 770841
 - Update BuildRequires (libffmpeg-devel -> ffmpeg-devel)
