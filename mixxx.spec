@@ -34,7 +34,7 @@ BuildRequires:	portmidi-devel
 BuildRequires:	ffmpeg-devel
 BuildRequires:	scons
 BuildRequires:	imagemagick
-Requires:	python
+BuildRequires:	python
 Requires:	qt4-database-plugin-sqlite
 %py_requires -d
 
