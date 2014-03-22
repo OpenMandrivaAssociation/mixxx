@@ -1,7 +1,7 @@
 Summary:	Music DJing software
 Name:		mixxx
 Version:	1.11.0
-Release:	1
+Release:	%mkrel 2
 Group:		Sound
 License:	GPLv2+
 URL:		http://mixxx.sourceforge.net/
@@ -33,10 +33,10 @@ BuildRequires:	ladspa-devel
 BuildRequires:	portmidi-devel
 BuildRequires:	ffmpeg-devel
 BuildRequires:	scons
-BuildRequires:	imagemagick
 BuildRequires:	python
+BuildRequires:	imagemagick
 Requires:	qt4-database-plugin-sqlite
-%py_requires -d
+#py_requires -d
 
 %description
 Mixxx allows DJs to mix music live with a clean, simple interface.
@@ -55,14 +55,17 @@ text files.
 #patch1 -p1
 #patch2 -p0
 
-
-%build
 sed -i -e "s|QTDIR\/lib|QTDIR\/%{_lib}|g" src/SConscript
-sed -i -e 's|-Wl,-rpath,\$QTDIR/%{_lib}||g' src/SConscript
-
+# No more present in src/SConscript
+#sed -i -e 's|-Wl,-rpath,\$QTDIR/%%{_lib}||g' src/SConscript
 #sed -i -e "s|lib\/libqt-mt|%%{_lib}\/libqt-mt|g" \
 #	src/build.definition
 
+# Fix vamp plugins installation dir
+sed -i -e "s|(install_root, 'lib')|(install_root, '%{_lib}')|g" src/SConscript
+
+
+%build
 # Not working support: ffmpeg, ipod and tonal
 # Build fail: hss1394, ladspa
 # Other options: faad, mad
@@ -80,7 +83,7 @@ sed -i -e 's|-Wl,-rpath,\$QTDIR/%{_lib}||g' src/SConscript
     ipod=0 \
     hifieq=1 \
     ffmpeg=0 \
-    vamp=0 \
+    vamp=1 \
     vinylcontrol=1 \
     tonal=0 \
     portmidi=1 \
@@ -110,19 +113,27 @@ convert -resize 16x16 res/images/mixxx-icon.png %{buildroot}%{_iconsdir}/hicolor
 # not needed
 rm -rf %{buildroot}%{_datadir}/pixmaps
 
+# Fix rpmlint warnings
+chmod +x %{buildroot}%{_datadir}/%{name}/controllers/convertToXMLSchemaV1.php
+chmod +x %{buildroot}%{_datadir}/%{name}/controllers/Vestax-VCI-300-scripts.js
+
 
 %files
 %doc README LICENSE README.macro
 %doc Mixxx-Manual.pdf
 %{_bindir}/%{name}
-#{_libdir}/%%{name}/plugins/vamp/*.so
+%{_libdir}/%{name}/plugins/vamp/*.so
 %{_iconsdir}/hicolor/*/apps/*
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 
 
-
 %changelog
+* Sat Mar 22 2014 Giovanni Mariani <mc2374@mclink.it> 1.11.0-2
+- Placed all the sed machinery in the %%prep section
+- Fixed a couple of rpmlint warnings
+- Added S100 to silence the reamining useless rpmlint noise
+
 * Fri Mar 21 2014 Giovanni Mariani <mc2374@mclink.it> 1.11.0-1
 - New release 1.11.0
 - Adjusted BReqs
