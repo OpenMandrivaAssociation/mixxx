@@ -1,0 +1,5 @@
+# Possibly harmless but there are a boatload of them
+addFilter("W: cross-directory-hard-link")
+
+# False positives: only two of seven are "real" scripts
+addFilter("W: script-without-shebang")
