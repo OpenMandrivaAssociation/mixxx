@@ -6,6 +6,8 @@ Group:		Sound
 License:	GPLv2+
 URL:		http://mixxx.sourceforge.net/
 Source:		http://downloads.mixxx.org/%{name}-%{version}/%{name}-%{version}-src.tar.gz
+Source100:  mixxx.rpmlintrc
+
 BuildRequires:	qt4-devel >= 4.6.0
 BuildRequires:	pkgconfig(sndfile)
 BuildRequires:	pkgconfig(fftw3)
