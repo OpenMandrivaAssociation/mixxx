@@ -125,7 +125,7 @@ export LIBDIR=%{_libdir}
 #FIXME : LIBDIR needed by Mixxx as of 2.0.0 version
 export LIBDIR=%{_libdir}
 
-scons-2 install DESTDIR=%{buildroot} \
+%scons install DESTDIR=%{buildroot} \
     prefix=%{_prefix} \
     install_root=%{buildroot}%{_prefix} \
     qt5=1 \
