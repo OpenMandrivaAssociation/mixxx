@@ -14,7 +14,7 @@ BuildRequires:	ffmpeg-devel
 BuildRequires:	ladspa-devel
 BuildRequires:	scons
 BuildRequires:	qt5-linguist-tools
-#BuildRequires:	portmidi-devel
+BuildRequires:	portmidi-devel
 BuildRequires:	cmake(Qt5Keychain)
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(flac)
