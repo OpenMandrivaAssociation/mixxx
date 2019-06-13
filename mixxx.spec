@@ -127,6 +127,7 @@ export LIBDIR=%{_libdir}
 
 %scons install DESTDIR=%{buildroot} \
     prefix=%{_prefix} \
+    qtdir=%{_libdir}/qt5 \
     install_root=%{buildroot}%{_prefix} \
     qt5=1 \
     machine=%{machine}
