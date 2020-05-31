@@ -60,6 +60,7 @@ BuildRequires:	pkgconfig(protobuf)
 BuildRequires:	pkgconfig(rubberband)
 BuildRequires:	pkgconfig(upower-glib)
 BuildRequires:	pkgconfig(wavpack)
+BuildRequires:  pkgconfig(vamp-hostsdk)
 
 Requires:	qt5-database-plugin-sqlite
 
