@@ -1,12 +1,12 @@
 Summary:	Music DJing software
 Name:		mixxx
-Version:	2.2.3
+Version:	2.2.4
 Release:	1
 Group:		Sound/Players
 License:	GPLv2+
 URL:		https://www.mixxx.org/
 Source0:	https://github.com/mixxxdj/mixxx/archive/release-%{version}/%{name}-release-%{version}.tar.gz
-Patch0:     mixxx-2.2.2-scons-python3.patch
+#Patch0:     mixxx-2.2.2-scons-python3.patch
 BuildRequires:	icoutils
 BuildRequires:	imagemagick
 BuildRequires:	scons
@@ -60,6 +60,9 @@ BuildRequires:	pkgconfig(protobuf)
 BuildRequires:	pkgconfig(rubberband)
 BuildRequires:	pkgconfig(upower-glib)
 BuildRequires:	pkgconfig(wavpack)
+BuildRequires:  pkgconfig(vamp-hostsdk)
+BuildRequires:  pkgconfig(vamp-sdk)
+BuildRequires:  vamp-plugin-sdk-devel
 
 Requires:	qt5-database-plugin-sqlite
 
