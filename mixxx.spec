@@ -1,11 +1,11 @@
 Summary:	Music DJing software
 Name:		mixxx
-Version:	2.2.4
+Version:	2.3.0
 Release:	1
 Group:		Sound/Players
 License:	GPLv2+
 URL:		https://www.mixxx.org/
-Source0:	https://github.com/mixxxdj/mixxx/archive/release-%{version}/%{name}-release-%{version}.tar.gz
+Source0:	https://github.com/mixxxdj/mixxx/archive/%{version}/%{name}-%{version}.tar.gz
 #Patch0:     mixxx-2.2.2-scons-python3.patch
 BuildRequires:	icoutils
 BuildRequires:	imagemagick
@@ -78,7 +78,7 @@ MIDI controllers can be used. The mapping between functions and MIDI
 controller values are done in text files.
 
 %prep
-%autosetup -n %{name}-release-%{version} -p1
+%autosetup -n %{name}-%{version} -p1
 
 %build
 %setup_compile_flags
