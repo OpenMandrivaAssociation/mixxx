@@ -83,8 +83,8 @@ controller values are done in text files.
 %build
 %setup_compile_flags
 
-sed -i -e "s|QTDIR\/lib|QTDIR\/%{_lib}|g" src/SConscript
-sed -i -e 's|-Wl,-rpath,\$QTDIR/%{_lib}||g' src/SConscript
+#sed -i -e "s|QTDIR\/lib|QTDIR\/%{_lib}|g" src/SConscript
+#sed -i -e 's|-Wl,-rpath,\$QTDIR/%{_lib}||g' src/SConscript
 
 %global machine %{_arch}
 
