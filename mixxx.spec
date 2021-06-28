@@ -14,6 +14,7 @@ BuildRequires:	scons
 BuildRequires:	sed
 BuildRequires:	ffmpeg-devel
 BuildRequires:	ladspa-devel
+BuildRequires:  lame-devel
 BuildRequires:	scons
 BuildRequires:	qt5-linguist-tools
 BuildRequires:	portmidi-devel
