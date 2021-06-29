@@ -162,12 +162,11 @@ install -m644 res/images/templates/ic_template_mixxx.svg %{buildroot}%{_iconsdir
 rm -rf %{buildroot}%{_datadir}/pixmaps
 
 %files
-%doc CHANGELOG README* LICENSE
-%doc Mixxx-Manual.pdf
+%doc README* LICENSE
 %{_bindir}/%{name}
 %{_iconsdir}/hicolor/*/apps/*
 %{_datadir}/%{name}/
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/appdata/%{name}.appdata.xml
-%{_libdir}/%{name}/
-%{_udevrulesdir}/90-%{name}.usb.rules
+#{_datadir}/appdata/%{name}.appdata.xml
+#{_libdir}/%{name}/
+#{_udevrulesdir}/90-%{name}.usb.rules
