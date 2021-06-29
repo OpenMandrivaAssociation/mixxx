@@ -83,6 +83,8 @@ controller values are done in text files.
 %autosetup -n %{name}-%{version} -p1
 
 %build
+export CC=gcc
+export CXX=g++
 %setup_compile_flags
 
 #sed -i -e "s|QTDIR\/lib|QTDIR\/%{_lib}|g" src/SConscript
