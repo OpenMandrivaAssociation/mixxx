@@ -1,18 +1,20 @@
 Summary:	Music DJing software
 Name:		mixxx
-Version:	2.2.4
+Version:	2.3.0
 Release:	1
 Group:		Sound/Players
 License:	GPLv2+
 URL:		https://www.mixxx.org/
-Source0:	https://github.com/mixxxdj/mixxx/archive/release-%{version}/%{name}-release-%{version}.tar.gz
-#Patch0:     mixxx-2.2.2-scons-python3.patch
+Source0:	https://github.com/mixxxdj/mixxx/archive/%{version}/%{name}-%{version}.tar.gz
+
+BuildRequires:  cmake
 BuildRequires:	icoutils
 BuildRequires:	imagemagick
 BuildRequires:	scons
 BuildRequires:	sed
 BuildRequires:	ffmpeg-devel
 BuildRequires:	ladspa-devel
+BuildRequires:  lame-devel
 BuildRequires:	scons
 BuildRequires:	qt5-linguist-tools
 BuildRequires:	portmidi-devel
@@ -78,64 +80,24 @@ MIDI controllers can be used. The mapping between functions and MIDI
 controller values are done in text files.
 
 %prep
-%autosetup -n %{name}-release-%{version} -p1
+%autosetup -n %{name}-%{version} -p1
 
 %build
+export CC=gcc
+export CXX=g++
 %setup_compile_flags
-
-sed -i -e "s|QTDIR\/lib|QTDIR\/%{_lib}|g" src/SConscript
-sed -i -e 's|-Wl,-rpath,\$QTDIR/%{_lib}||g' src/SConscript
-
-%global machine %{_arch}
-
-%ifarch %ix86
-%global machine i586
-%endif
-%ifarch x86_64
-%global machine amd64
-%endif
-%ifarch armv5tl
-%global machine armel
-%endif
-%ifarch armv7hl
-%global machine armhf
-%endif
 
 #FIXME : LIBDIR needed by Mixxx as of 2.0.0 version
 export LIBDIR=%{_libdir}
 
-%scons \
-    prefix=%{_prefix} \
-    install_root=%{buildroot}%{_prefix} \
-    qt5=1 \
-    qtdir=%{_libdir}/qt5 \
-    build=release \
-    optimize=portable \
-    shoutcast=1 \
-    ladspa=0 \
-    ipod=0 \
-    ffmpeg=1 \
-    vinylcontrol=1 \
-    portmidi=1 \
-    m4a=0 \
-    tuned=0 \
-    vamp=1 \
-    qtkeychain=1 \
-    wavpack=1 \
-    modplug=1 \
-    machine=%{machine}
+%cmake
+%make_build
 
 %install
 #FIXME : LIBDIR needed by Mixxx as of 2.0.0 version
 export LIBDIR=%{_libdir}
 
-%scons install DESTDIR=%{buildroot} \
-    prefix=%{_prefix} \
-    qtdir=%{_libdir}/qt5 \
-    install_root=%{buildroot}%{_prefix} \
-    qt5=1 \
-    machine=%{machine}
-
+%make_install -C build
 rm -fr %{buildroot}%{_docdir}
 
 mkdir -p %{buildroot}%{_datadir}/applications
@@ -145,20 +107,13 @@ sed -i -e "s|mixxx-icon|mixxx|g" %{buildroot}%{_datadir}/applications/%{name}.de
 mkdir -p %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
 install -m644 res/images/templates/ic_template_mixxx.svg %{buildroot}%{_iconsdir}/hicolor/scalable/apps/%{name}.svg
 
-# Install udev rule
-mkdir -p %{buildroot}%{_udevrulesdir}
-install -p -m 0644 res/linux/mixxx.usb.rules %{buildroot}%{_udevrulesdir}/90-mixxx.usb.rules
-
 # not needed
 rm -rf %{buildroot}%{_datadir}/pixmaps
 
 %files
-%doc CHANGELOG README* LICENSE
-%doc Mixxx-Manual.pdf
+%doc README* LICENSE
 %{_bindir}/%{name}
 %{_iconsdir}/hicolor/*/apps/*
 %{_datadir}/%{name}/
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/appdata/%{name}.appdata.xml
-%{_libdir}/%{name}/
-%{_udevrulesdir}/90-%{name}.usb.rules
+%{_datadir}metainfo/mixxx.metainfo.xml
