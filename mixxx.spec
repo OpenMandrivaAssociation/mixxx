@@ -6,7 +6,7 @@ Group:		Sound/Players
 License:	GPLv2+
 URL:		https://www.mixxx.org/
 Source0:	https://github.com/mixxxdj/mixxx/archive/%{version}/%{name}-%{version}.tar.gz
-#Patch0:     mixxx-2.2.2-scons-python3.patch
+
 BuildRequires:  cmake
 BuildRequires:	icoutils
 BuildRequires:	imagemagick
@@ -130,7 +130,6 @@ export LIBDIR=%{_libdir}
 #    machine=%{machine}
 
 %cmake
-
 %make_build
 
 %install
@@ -167,6 +166,5 @@ rm -rf %{buildroot}%{_datadir}/pixmaps
 %{_iconsdir}/hicolor/*/apps/*
 %{_datadir}/%{name}/
 %{_datadir}/applications/%{name}.desktop
-#{_datadir}/appdata/%{name}.appdata.xml
-#{_libdir}/%{name}/
-#{_udevrulesdir}/90-%{name}.usb.rules
+%{_datadir}metainfo/mixxx.metainfo.xml
+
