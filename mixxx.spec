@@ -155,8 +155,8 @@ mkdir -p %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
 install -m644 res/images/templates/ic_template_mixxx.svg %{buildroot}%{_iconsdir}/hicolor/scalable/apps/%{name}.svg
 
 # Install udev rule
-mkdir -p %{buildroot}%{_udevrulesdir}
-install -p -m 0644 res/linux/mixxx.usb.rules %{buildroot}%{_udevrulesdir}/90-mixxx.usb.rules
+#mkdir -p %{buildroot}%{_udevrulesdir}
+#install -p -m 0644 res/linux/mixxx.usb.rules %{buildroot}%{_udevrulesdir}/90-mixxx.usb.rules
 
 # not needed
 rm -rf %{buildroot}%{_datadir}/pixmaps
