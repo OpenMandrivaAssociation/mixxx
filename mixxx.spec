@@ -100,9 +100,9 @@ export LIBDIR=%{_libdir}
 %make_install -C build
 rm -fr %{buildroot}%{_docdir}
 
-mkdir -p %{buildroot}%{_datadir}/applications
-install -m644 res/linux/%{name}.desktop %{buildroot}%{_datadir}/applications
-sed -i -e "s|mixxx-icon|mixxx|g" %{buildroot}%{_datadir}/applications/%{name}.desktop
+#mkdir -p %{buildroot}%{_datadir}/applications
+#install -m644 res/linux/%{name}.desktop %{buildroot}%{_datadir}/applications
+#sed -i -e "s|mixxx-icon|mixxx|g" %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 mkdir -p %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
 install -m644 res/images/templates/ic_template_mixxx.svg %{buildroot}%{_iconsdir}/hicolor/scalable/apps/%{name}.svg
