@@ -115,5 +115,5 @@ rm -rf %{buildroot}%{_datadir}/pixmaps
 %{_bindir}/%{name}
 %{_iconsdir}/hicolor/*/apps/*
 %{_datadir}/%{name}/
-%{_datadir}/org.mixxx.Mixxx.desktop
+%{_datadir}/applications/org.mixxx.Mixxx.desktop
 %{_datadir}/metainfo/org.mixxx.Mixxx.metainfo.xml
