@@ -1,0 +1,23 @@
+diff -up mixxx-2.3.1/lib/benchmark/src/benchmark_register.h.omv~ mixxx-2.3.1/lib/benchmark/src/benchmark_register.h
+--- mixxx-2.3.1/lib/benchmark/src/benchmark_register.h.omv~	2022-01-17 18:42:25.495792684 +0100
++++ mixxx-2.3.1/lib/benchmark/src/benchmark_register.h	2022-01-17 18:42:31.184865214 +0100
+@@ -2,6 +2,7 @@
+ #define BENCHMARK_REGISTER_H
+ 
+ #include <vector>
++#include <limits>
+ 
+ #include "check.h"
+ 
+diff -up mixxx-2.3.1/src/sources/soundsourceffmpeg.cpp.omv~ mixxx-2.3.1/src/sources/soundsourceffmpeg.cpp
+--- mixxx-2.3.1/src/sources/soundsourceffmpeg.cpp.omv~	2022-01-17 04:45:45.503863696 +0100
++++ mixxx-2.3.1/src/sources/soundsourceffmpeg.cpp	2022-01-17 04:45:51.739896345 +0100
+@@ -518,7 +518,7 @@ SoundSource::OpenResult SoundSourceFFmpe
+     }
+ 
+     // Find the best stream
+-    AVCodec* pDecoder = nullptr;
++    const AVCodec* pDecoder = nullptr;
+     const int av_find_best_stream_result = av_find_best_stream(
+             m_pavInputFormatContext,
+             AVMEDIA_TYPE_AUDIO,

@@ -1,16 +1,17 @@
 Summary:	Music DJing software
 Name:		mixxx
 Version:	2.3.1
-Release:	1
+Release:	2
 Group:		Sound/Players
 License:	GPLv2+
 URL:		https://www.mixxx.org/
 Source0:	https://github.com/mixxxdj/mixxx/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:		mixxx-2.3.1-compile.patch
+Patch1:		mixxx-2.3.1-ffmpeg-5.0.patch
 
-BuildRequires:  cmake
+BuildRequires:  cmake ninja
 BuildRequires:	icoutils
 BuildRequires:	imagemagick
-BuildRequires:	scons
 BuildRequires:	sed
 BuildRequires:	ffmpeg-devel
 BuildRequires:	ladspa-devel
@@ -58,7 +59,6 @@ BuildRequires:	pkgconfig(opusfile)
 BuildRequires:	pkgconfig(libusb)
 BuildRequires:	pkgconfig(portaudio-2.0)
 BuildRequires:	pkgconfig(protobuf)
-#BuildRequires:	pkgconfig(python2)
 BuildRequires:	pkgconfig(rubberband)
 BuildRequires:	pkgconfig(upower-glib)
 BuildRequires:	pkgconfig(wavpack)
@@ -81,28 +81,15 @@ controller values are done in text files.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
+%setup_compile_flags
+%cmake -G Ninja
 
 %build
-export CC=gcc
-export CXX=g++
-%setup_compile_flags
-
-#FIXME : LIBDIR needed by Mixxx as of 2.0.0 version
-export LIBDIR=%{_libdir}
-
-%cmake
-%make_build
+%ninja_build -C build
 
 %install
-#FIXME : LIBDIR needed by Mixxx as of 2.0.0 version
-export LIBDIR=%{_libdir}
-
-%make_install -C build
+%ninja_install -C build
 rm -fr %{buildroot}%{_docdir}
-
-#mkdir -p %{buildroot}%{_datadir}/applications
-#install -m644 res/linux/%{name}.desktop %{buildroot}%{_datadir}/applications
-#sed -i -e "s|mixxx-icon|mixxx|g" %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 mkdir -p %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
 install -m644 res/images/templates/ic_template_mixxx.svg %{buildroot}%{_iconsdir}/hicolor/scalable/apps/%{name}.svg
@@ -117,3 +104,4 @@ rm -rf %{buildroot}%{_datadir}/pixmaps
 %{_datadir}/%{name}/
 %{_datadir}/applications/org.mixxx.Mixxx.desktop
 %{_datadir}/metainfo/org.mixxx.Mixxx.metainfo.xml
+/lib/udev/rules.d/*

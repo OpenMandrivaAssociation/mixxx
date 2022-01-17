@@ -1,0 +1,20 @@
+diff -up mixxx-2.3.1/lib/benchmark/src/complexity.cc.omv~ mixxx-2.3.1/lib/benchmark/src/complexity.cc
+--- mixxx-2.3.1/lib/benchmark/src/complexity.cc.omv~	2022-01-17 19:56:26.780209192 +0100
++++ mixxx-2.3.1/lib/benchmark/src/complexity.cc	2022-01-17 19:57:52.584731274 +0100
+@@ -79,6 +79,8 @@ std::string GetBigOString(BigO complexit
+ // For a deeper explanation on the algorithm logic, please refer to
+ // https://en.wikipedia.org/wiki/Least_squares#Least_squares,_regression_analysis_and_statistics
+ 
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wunused-but-set-variable" // clang sees sigma_gn as unused if n.size() == 0
+ LeastSq MinimalLeastSq(const std::vector<int64_t>& n,
+                        const std::vector<double>& time,
+                        BigOFunc* fitting_curve) {
+@@ -115,6 +117,7 @@ LeastSq MinimalLeastSq(const std::vector
+ 
+   return result;
+ }
++#pragma GCC diagnostic pop
+ 
+ // Find the coefficient for the high-order term in the running time, by
+ // minimizing the sum of squares of relative error.
