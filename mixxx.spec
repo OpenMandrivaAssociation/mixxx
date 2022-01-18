@@ -64,6 +64,7 @@ BuildRequires:	pkgconfig(upower-glib)
 BuildRequires:	pkgconfig(wavpack)
 BuildRequires:  pkgconfig(vamp-hostsdk)
 BuildRequires:  pkgconfig(vamp-sdk)
+BuildRequires:	pkgconfig(udev)
 BuildRequires:  vamp-plugin-sdk-devel
 
 Requires:	qt5-database-plugin-sqlite
