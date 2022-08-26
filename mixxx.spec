@@ -1,3 +1,4 @@
+%define _empty_manifest_terminate_build 0
 Summary:	Music DJing software
 Name:		mixxx
 Version:	2.3.1
