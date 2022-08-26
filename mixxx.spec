@@ -105,4 +105,4 @@ rm -rf %{buildroot}%{_datadir}/pixmaps
 %{_datadir}/%{name}/
 %{_datadir}/applications/org.mixxx.Mixxx.desktop
 %{_datadir}/metainfo/org.mixxx.Mixxx.metainfo.xml
-/lib/udev/rules.d/*
+%{_prefix}/lib/udev/rules.d/*
