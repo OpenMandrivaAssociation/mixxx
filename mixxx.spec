@@ -1,14 +1,14 @@
 %define _empty_manifest_terminate_build 0
 Summary:	Music DJing software
 Name:		mixxx
-Version:	2.3.1
-Release:	3
+Version:	2.3.3
+Release:	1
 Group:		Sound/Players
 License:	GPLv2+
 URL:		https://www.mixxx.org/
 Source0:	https://github.com/mixxxdj/mixxx/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:		mixxx-2.3.1-compile.patch
-Patch1:		mixxx-2.3.1-ffmpeg-5.0.patch
+#Patch0:		mixxx-2.3.1-compile.patch
+#Patch1:		mixxx-2.3.1-ffmpeg-5.0.patch
 
 BuildRequires:  cmake ninja
 BuildRequires:	icoutils
