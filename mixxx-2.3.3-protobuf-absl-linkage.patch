@@ -1,0 +1,21 @@
+diff -up mixxx-2.3.3/CMakeLists.txt.omv~ mixxx-2.3.3/CMakeLists.txt
+--- mixxx-2.3.3/CMakeLists.txt.omv~	2023-03-12 21:21:24.363203966 +0100
++++ mixxx-2.3.3/CMakeLists.txt	2023-03-12 21:33:56.823067908 +0100
+@@ -1160,7 +1160,7 @@ endif()
+ # The mixxx executable
+ add_executable(mixxx WIN32 src/main.cpp)
+ set_target_properties(mixxx-lib PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY}")
+-target_link_libraries(mixxx PRIVATE mixxx-lib mixxx-gitinfostore)
++target_link_libraries(mixxx PRIVATE mixxx-lib mixxx-gitinfostore absl_log_internal_message absl_log_internal_check_op)
+ 
+ #
+ # Installation and Packaging
+@@ -1570,7 +1570,7 @@ add_executable(mixxx-test
+   src/test/wwidgetstack_test.cpp
+ )
+ set_target_properties(mixxx-test PROPERTIES AUTOMOC ON)
+-target_link_libraries(mixxx-test PRIVATE mixxx-lib mixxx-gitinfostore gtest gmock)
++target_link_libraries(mixxx-test PRIVATE mixxx-lib mixxx-gitinfostore gtest gmock absl_log_internal_message absl_log_internal_check_op)
+ 
+ #
+ # Benchmark tests
