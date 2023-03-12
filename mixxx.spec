@@ -1,7 +1,7 @@
 %define _empty_manifest_terminate_build 0
 Summary:	Music DJing software
 Name:		mixxx
-Version:	2.3.3
+Version:	2.3.4
 Release:	1
 Group:		Sound/Players
 License:	GPLv2+
