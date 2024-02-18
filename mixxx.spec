@@ -70,6 +70,7 @@ BuildRequires:  pkgconfig(vamp-hostsdk)
 BuildRequires:  pkgconfig(vamp-sdk)
 BuildRequires:	pkgconfig(udev)
 BuildRequires:  vamp-plugin-sdk-devel
+BuildRequires:  cmake(GTest)
 
 Requires:	qt5-database-plugin-sqlite
 
