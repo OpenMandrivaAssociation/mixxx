@@ -1,0 +1,11 @@
+diff -up mixxx-2.3.4/src/network/jsonwebtask.h.omv~ mixxx-2.3.4/src/network/jsonwebtask.h
+--- mixxx-2.3.4/src/network/jsonwebtask.h.omv~	2024-04-10 18:52:01.824458089 +0200
++++ mixxx-2.3.4/src/network/jsonwebtask.h	2024-04-10 18:53:06.737096219 +0200
+@@ -15,6 +15,7 @@ struct JsonWebRequest final {
+     JsonWebRequest() = delete;
+     JsonWebRequest(const JsonWebRequest&) = default;
+     JsonWebRequest(JsonWebRequest&&) = default;
++    JsonWebRequest(HttpRequestMethod m, QString p, QUrlQuery q, QJsonDocument c):method(m),path(p),query(q),content(c) {}
+ 
+     JsonWebRequest& operator=(const JsonWebRequest&) = default;
+     JsonWebRequest& operator=(JsonWebRequest&&) = default;

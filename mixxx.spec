@@ -1,5 +1,5 @@
 %undefine _debugsource_packages
-%global optflags %{optflags} -DPROTOBUF_USE_DLLS=1
+%global optflags %{optflags} -DPROTOBUF_USE_DLLS=1 -Wno-nan-infinity-disabled
 
 Summary:	Music DJing software
 Name:		mixxx
@@ -12,6 +12,7 @@ Source0:	https://github.com/mixxxdj/mixxx/archive/%{version}/%{name}-%{version}.
 #Patch0:		mixxx-2.3.1-compile.patch
 #Patch1:		mixxx-2.3.1-ffmpeg-5.0.patch
 Patch0:		mixxx-2.3.3-protobuf-absl-linkage.patch
+Patch1:		mixx-c++20.patch
 
 BuildRequires:  cmake ninja
 BuildRequires:	icoutils
@@ -87,6 +88,7 @@ controller values are done in text files.
 %prep
 %autosetup -n %{name}-%{version} -p1
 %setup_compile_flags
+sed -i -e 's,CMAKE_CXX_STANDARD 17,CMAKE_CXX_STANDARD 20,g' CMakeLists.txt
 %cmake -G Ninja
 
 %build
