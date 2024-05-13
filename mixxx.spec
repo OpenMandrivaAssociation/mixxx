@@ -24,6 +24,7 @@ BuildRequires:  lame-devel
 BuildRequires:	scons
 BuildRequires:	qt5-linguist-tools
 BuildRequires:	portmidi-devel
+BuildRequires:  cmake(GTest)
 BuildRequires:	cmake(Qt5Keychain)
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(flac)
