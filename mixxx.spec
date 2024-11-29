@@ -3,16 +3,16 @@
 
 Summary:	Music DJing software
 Name:		mixxx
-Version:	2.3.6
-Release:	2
+Version:	2.4.2
+Release:	1
 Group:		Sound/Players
 License:	GPLv2+
 URL:		https://www.mixxx.org/
 Source0:	https://github.com/mixxxdj/mixxx/archive/%{version}/%{name}-%{version}.tar.gz
 #Patch0:		mixxx-2.3.1-compile.patch
 #Patch1:		mixxx-2.3.1-ffmpeg-5.0.patch
-Patch0:		mixxx-2.3.3-protobuf-absl-linkage.patch
-Patch1:		mixx-c++20.patch
+#Patch0:		mixxx-2.3.3-protobuf-absl-linkage.patch
+#Patch1:		mixx-c++20.patch
 
 BuildRequires:  cmake ninja
 BuildRequires:	icoutils
@@ -24,7 +24,9 @@ BuildRequires:  lame-devel
 BuildRequires:	scons
 BuildRequires:	qt5-linguist-tools
 BuildRequires:	portmidi-devel
+BuildRequires:  pkgconfig(gtest)
 BuildRequires:	cmake(Qt5Keychain)
+BuildRequires:  cmake(Microsoft.GSL)
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(flac)
 BuildRequires:	pkgconfig(Qt5Concurrent)
@@ -34,6 +36,7 @@ BuildRequires:	pkgconfig(Qt5Gui)
 BuildRequires:	pkgconfig(Qt5Help)
 BuildRequires:	pkgconfig(Qt5Network)
 BuildRequires:	pkgconfig(Qt5OpenGL)
+BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:	pkgconfig(Qt5Script)
 BuildRequires:	pkgconfig(Qt5ScriptTools)
 BuildRequires:	pkgconfig(Qt5Sql)
@@ -44,6 +47,8 @@ BuildRequires:	pkgconfig(Qt5Xml)
 BuildRequires:	pkgconfig(Qt5X11Extras)
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(audiofile)
+BuildRequires:  pkgconfig(benchmark)
+BuildRequires:  pkgconfig(libkeyfinder)
 BuildRequires:	pkgconfig(libchromaprint)
 BuildRequires:	pkgconfig(libebur128)
 BuildRequires:	pkgconfig(fftw3)
@@ -89,7 +94,7 @@ controller values are done in text files.
 %autosetup -n %{name}-%{version} -p1
 %setup_compile_flags
 sed -i -e 's,CMAKE_CXX_STANDARD 17,CMAKE_CXX_STANDARD 20,g' CMakeLists.txt
-%cmake -G Ninja
+%cmake -G Ninja -DENGINEPRIME=OFF
 
 %build
 %ninja_build -C build
