@@ -93,7 +93,7 @@ controller values are done in text files.
 %autosetup -n %{name}-%{version} -p1
 %setup_compile_flags
 sed -i -e 's,CMAKE_CXX_STANDARD 17,CMAKE_CXX_STANDARD 20,g' CMakeLists.txt
-%cmake -G Ninja
+%cmake -G Ninja -DENGINEPRIME=OFF
 
 %build
 %ninja_build -C build
