@@ -26,6 +26,7 @@ BuildRequires:	qt5-linguist-tools
 BuildRequires:	portmidi-devel
 BuildRequires:  pkgconfig(gtest)
 BuildRequires:	cmake(Qt5Keychain)
+BuildRequires:  cmake(Microsoft.GSL)
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(flac)
 BuildRequires:	pkgconfig(Qt5Concurrent)
