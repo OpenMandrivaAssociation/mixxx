@@ -12,7 +12,7 @@ Source0:	https://github.com/mixxxdj/mixxx/archive/%{version}/%{name}-%{version}.
 #Patch0:		mixxx-2.3.1-compile.patch
 #Patch1:		mixxx-2.3.1-ffmpeg-5.0.patch
 #Patch0:		mixxx-2.3.3-protobuf-absl-linkage.patch
-Patch1:		mixx-c++20.patch
+#Patch1:		mixx-c++20.patch
 
 BuildRequires:  cmake ninja
 BuildRequires:	icoutils
