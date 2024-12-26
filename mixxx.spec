@@ -3,16 +3,12 @@
 
 Summary:	Music DJing software
 Name:		mixxx
-Version:	2.4.2
+Version:	2.5.0
 Release:	1
 Group:		Sound/Players
 License:	GPLv2+
 URL:		https://www.mixxx.org/
 Source0:	https://github.com/mixxxdj/mixxx/archive/%{version}/%{name}-%{version}.tar.gz
-#Patch0:		mixxx-2.3.1-compile.patch
-#Patch1:		mixxx-2.3.1-ffmpeg-5.0.patch
-#Patch0:		mixxx-2.3.3-protobuf-absl-linkage.patch
-#Patch1:		mixx-c++20.patch
 
 BuildRequires:  cmake ninja
 BuildRequires:	icoutils
@@ -22,29 +18,37 @@ BuildRequires:	ffmpeg-devel
 BuildRequires:	ladspa-devel
 BuildRequires:  lame-devel
 BuildRequires:	scons
-BuildRequires:	qt5-linguist-tools
 BuildRequires:	portmidi-devel
 BuildRequires:  pkgconfig(gtest)
-BuildRequires:	cmake(Qt5Keychain)
+BuildRequires:	cmake(Qt6Keychain)
 BuildRequires:  cmake(Microsoft.GSL)
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(flac)
-BuildRequires:	pkgconfig(Qt5Concurrent)
-BuildRequires:	pkgconfig(Qt5Core)
-BuildRequires:	pkgconfig(Qt5DBus)
-BuildRequires:	pkgconfig(Qt5Gui)
-BuildRequires:	pkgconfig(Qt5Help)
-BuildRequires:	pkgconfig(Qt5Network)
-BuildRequires:	pkgconfig(Qt5OpenGL)
-BuildRequires:  pkgconfig(Qt5Qml)
-BuildRequires:	pkgconfig(Qt5Script)
-BuildRequires:	pkgconfig(Qt5ScriptTools)
-BuildRequires:	pkgconfig(Qt5Sql)
-BuildRequires:	pkgconfig(Qt5Svg)
-BuildRequires:	pkgconfig(Qt5Test)
-BuildRequires:	pkgconfig(Qt5Widgets)
-BuildRequires:	pkgconfig(Qt5Xml)
-BuildRequires:	pkgconfig(Qt5X11Extras)
+BuildRequires:	cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6QuickShapesPrivate)
+BuildRequires:	pkgconfig(Qt6Concurrent)
+BuildRequires:	pkgconfig(Qt6Core)
+BuildRequires:  pkgconfig(Qt6Core5Compat)
+BuildRequires:	pkgconfig(Qt6DBus)
+BuildRequires:	pkgconfig(Qt6Gui)
+BuildRequires:  pkgconfig(Qt6Quick)
+BuildRequires:  pkgconfig(Qt6QuickLayouts)
+BuildRequires:  pkgconfig(Qt6QuickControls2)
+BuildRequires:  pkgconfig(Qt6QuickControls2Impl)
+BuildRequires:  pkgconfig(Qt6QuickWidgets)
+BuildRequires:	pkgconfig(Qt6Help)
+BuildRequires:	pkgconfig(Qt6Network)
+BuildRequires:	pkgconfig(Qt6OpenGL)
+BuildRequires:  pkgconfig(Qt6Qml)
+BuildRequires:	pkgconfig(Qt6PrintSupport)
+BuildRequires:  pkgconfig(Qt6LabsQmlModels)
+BuildRequires:	pkgconfig(Qt6Sql)
+BuildRequires:	pkgconfig(Qt6Svg)
+BuildRequires:  pkgconfig(Qt6SvgWidgets)
+BuildRequires:  pkgconfig(Qt6ShaderTools)
+BuildRequires:	pkgconfig(Qt6Test)
+BuildRequires:	pkgconfig(Qt6Widgets)
+BuildRequires:	pkgconfig(Qt6Xml)
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(audiofile)
 BuildRequires:  pkgconfig(benchmark)
@@ -75,6 +79,9 @@ BuildRequires:	pkgconfig(wavpack)
 BuildRequires:  pkgconfig(vamp-hostsdk)
 BuildRequires:  pkgconfig(vamp-sdk)
 BuildRequires:	pkgconfig(udev)
+BuildRequires:  pkgconfig(xkbcommon-x11)
+BuildRequires:  pkgconfig(vulkan)
+BuildRequires:  cmake(VulkanHeaders)
 BuildRequires:  vamp-plugin-sdk-devel
 
 Requires:	qt5-database-plugin-sqlite
