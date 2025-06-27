@@ -3,8 +3,8 @@
 
 Summary:	Music DJing software
 Name:		mixxx
-Version:	2.5.0
-Release:	7
+Version:	2.5.2
+Release:	1
 Group:		Sound/Players
 License:	GPLv2+
 URL:		https://www.mixxx.org/
